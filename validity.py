@@ -18,9 +18,9 @@ class IdentityCard():
         self.__Ci = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2']
 
     def check(self, id):
-        if (len(id) != 18):
-            return False
-        return True
+        if (re.findall('[1-9]{1}[0-9]{16}[0-9Xx]{1}', id) and len(id) == 18):
+            return True
+        return False
         
     def calculate(self, id):
         idm = map(int, id[0:17])
@@ -28,4 +28,11 @@ class IdentityCard():
         if id[17] == self.__Ci[sumn % 11]:
             return True
         return False
+    
+     def out_id(self, id):
+        if re.findall('X|x', id[17]):
+            valid_id = id[:17] + 'X'
+            return valid_id
+        else:
+            return id
         
